@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feel</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "rambo" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "raphael" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+        <div class = "container" id = "main">
+                <%= yield %>
+        </div>
+
+</body>
+</html>

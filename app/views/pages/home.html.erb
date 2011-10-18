@@ -1,0 +1,6 @@
+<% if current_user == nil %>
+        <%= link_to image_tag('fb_logo.png'), "/auth/facebook"%>
+<% else %>
+        <p><%=current_user.name%></p>
+<%end %>
+<%= render 'shared/poll', :collection => @poll %>
