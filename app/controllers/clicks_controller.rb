@@ -8,6 +8,9 @@ class ClicksController < ApplicationController
           	@click.location = params[:loc]
           	@click.save
          	session[:latest_click]=Time.now.to_i
+		country_click=CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date) || CountryClicks.create_with_params(params)
+                country_click.clicks += 1;
+                country_click.save
 	  else
 	 	if Time.now.to_i - session[:latest_click] > 60	 
 	  		@click = Click.new
@@ -17,6 +20,9 @@ class ClicksController < ApplicationController
           		@click.location = params[:loc]
           		@click.save
 			session[:latest_click]=Time.now.to_i
+			country_click=CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date) || CountryClicks.create_with_params(params)
+			country_click.clicks += 1;
+			country_click.save
 		else
 			respond_to do |format|  
       				format.html {   

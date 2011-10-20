@@ -11,13 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017180514) do
+ActiveRecord::Schema.define(:version => 20111020165726) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "poll_id"
     t.integer  "user_id"
     t.integer  "option"
     t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "country_clicks", :force => true do |t|
+    t.integer  "poll_id"
+    t.string   "country"
+    t.integer  "clicks"
+    t.integer  "date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

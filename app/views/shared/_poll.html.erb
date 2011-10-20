@@ -4,6 +4,7 @@
 	
 	var geocoder;
 	var address;
+	var country;
 
   	if (navigator.geolocation) {
     		navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
@@ -28,20 +29,15 @@
     		geocoder.geocode({'latLng': latlng}, function(results, status) {
       		if (status == google.maps.GeocoderStatus.OK) {
         		if (results[1]) {
-         		//formatted address
 				address = results[0].formatted_address;
-        		//find country name
              			for (var i=0; i<results[0].address_components.length; i++) {
-            				for (var b=0;b<results[0].address_components[i].types.length;b++) {
-            		//there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-                				if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
-                    //this is the object you are looking for
-                    					city= results[0].address_components[i];
-                    					break;
+            				for (var j=0;j<results[0].address_components[i].types.length;j++) {
+                				if (results[0].address_components[i].types[j] == "country") {
+                    					country= results[0].address_components[i].long_name;
+							break;
                 				}
             				}
         			}
-        		//city data
 			} else {
  			         alert("No results found");
         		  }
@@ -168,7 +164,8 @@
                         		url: 'clicks',
                         		data: {poll_id: <%= @poll.id %>,
 					       option:opt,
-					       loc:address },
+					       loc:address,
+					       country:country },
 					success:function(data, textStatus) {
 						document.getElementById("messages").innerHTML="<p style='color:red'>Thanks Buddy !! </p>";
     					},
