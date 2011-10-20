@@ -163,6 +163,7 @@
                         };
                         });
 			function onSubmit(opt){
+				alert('hi');
 				$.ajax({
                         		type: 'POST',
                         		url: 'clicks',
@@ -170,10 +171,9 @@
 					       option:opt,
 					       loc:address },
 					success:function(data, textStatus) {
-						document.getElementById("messages").innerHTML="<p style='color:red'>Thanks Buddy !! </p>";
     					},
     					error:function(request, textStatus, errorThrown) {
-						document.getElementById("messages").innerHTML="<p style='color:red'>Chill Buddy !!  Get some fresh air </p>";
+						alert(textStatus);			
 					}
                         	});
 
@@ -184,5 +184,5 @@
 <div id = 'data_set'></div>
 <input type="button" value = "<%= @poll.option1 %>" id ="option1" onclick="onSubmit(1)">
 <input type="button" value = "<%= @poll.option2 %>" id ="option2" onclick="onSubmit(2)">
-<div id = "messages"></div>
+<div id = "errors"></div>
  

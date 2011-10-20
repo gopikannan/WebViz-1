@@ -1,13 +1,35 @@
 class ClicksController < ApplicationController
   def create
-          @click = Click.new
-          @click.poll_id = params[:poll_id]
-          @click.user_id = current_user.id
-          @click.option = params[:option]
-          @click.location = "Raleigh,NC"
-          @click.save
-
-          redirect_to root_path
+	  if session[:latest_click] < 0  	
+	  	@click = Click.new
+         	@click.poll_id = params[:poll_id]
+          	@click.user_id = current_user.id
+          	@click.option = params[:option]
+          	@click.location = params[:loc]
+          	@click.save
+         	session[:latest_click]=Time.now.to_i
+	  else
+	 	if Time.now.to_i - session[:latest_click] > 60	 
+	  		@click = Click.new
+         		@click.poll_id = params[:poll_id]
+          		@click.user_id = current_user.id
+          		@click.option = params[:option]
+          		@click.location = params[:loc]
+          		@click.save
+			session[:latest_click]=Time.now.to_i
+		else
+			respond_to do |format|  
+      				format.html {   
+        				flash.now[:error] = "Chill dude !! "  
+        				render :action => "new"  
+      				}	  
+      				# Render out the validation failed message with a  
+      				# 403 status code.  
+      				format.js { render :text => e.message, :status => 403 }  
+			end
+		end
+		
+	end
   end
 
 end

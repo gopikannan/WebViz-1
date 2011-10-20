@@ -1,6 +1,8 @@
 Feel::Application.routes.draw do
 
 
+  get "sessions/new"
+
   get "clicks/create"
 
   resources :polls, :only => [:create, :show]
@@ -19,7 +21,8 @@ Feel::Application.routes.draw do
           end
   end
 
-  match "/auth/:provider/callback" => "pages#login"
+  #match "/auth/:provider/callback" => "pages#login"
+  match "/auth/:provider/callback" => "sessions#new"
 
   match "polls/blob", :to => "polls#blob"
   match "polls/update", :to => "polls#update"
