@@ -8,9 +8,17 @@ class ClicksController < ApplicationController
           	@click.location = params[:loc]
           	@click.save
          	session[:latest_click]=Time.now.to_i
-		country_click=CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date) || CountryClicks.create_with_params(params)
-                country_click.clicks += 1;
-                country_click.save
+		@country_click = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country =>params[:country]) || CountryClicks.create_with_params(params,get_date)
+		 @country_click.each do|var| 
+			if var !=nil
+				if(params[:option] ==1)
+					var.clicks+=1
+				else
+					var.clicks-=1	
+				end
+				var.save
+			end
+		end
 	  else
 	 	if Time.now.to_i - session[:latest_click] > 60	 
 	  		@click = Click.new
@@ -20,9 +28,17 @@ class ClicksController < ApplicationController
           		@click.location = params[:loc]
           		@click.save
 			session[:latest_click]=Time.now.to_i
-			country_click=CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date) || CountryClicks.create_with_params(params)
-			country_click.clicks += 1;
-			country_click.save
+			@country_click = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country => params[:country]) || CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date) 
+		 	@country_click.each do|var| 
+				if var !=nil
+					if(params[:option]==1)
+						var.clicks+=1
+					else
+						var.clicks-=1
+					end
+					var.save
+				end
+			end
 		else
 			respond_to do |format|  
       				format.html {   
@@ -36,6 +52,15 @@ class ClicksController < ApplicationController
 		end
 		
 	end
+  end
+
+# GET /clicks/getcountryclicks.js
+
+  def getcountryclicks
+	@countryclicks = CountryClicks.select("country,clicks").where(:poll_id=>params[:poll_id],:date => get_date)
+	respond_to do |format|
+		format.js{render:json => @countryclicks.to_json}
+	end 
   end
 
 end
