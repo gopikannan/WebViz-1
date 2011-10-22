@@ -201,28 +201,27 @@
 			
 			function drawmap(){
 				var data = new google.visualization.DataTable();
-      				data.addRows(6);
+      				data.addRows(1);
 				data.addColumn('string', 'Country');
       				data.addColumn('number', 'clicks');
-				alert(countryclickdata);
 				var cclick = JSON.parse(countryclickdata);
 				var i;
 				for(i = 0;i<cclick.length;i++){
 					data.setValue(i,0,cclick[i].country);
 					data.setValue(i,1,cclick[i].clicks);	
-				}	
-				var options = {};
-     				options['dataMode'] = 'regions';
-      				var container = document.getElementById('canvas_container');
-			        var geomap = new google.visualization.GeoMap(container);
-     				geomap.draw(data, options);		
+				}
+				var options = {}; 
+      				options['backgroundColor']='black';
+      				var container = document.getElementById('map_canvas');
+      				var geochart = new google.visualization.GeoChart(container);
+      				geochart.draw(data, options);	
 			}
                 </script>
 <div id = "canvas_container" ></div>
+<div id = "map_canvas" ></div>
 <h1 class = "question" > <%= @poll.question %> </h1>
 <div id = 'data_set'></div>
 <input type="button" value = "<%= @poll.option1 %>" id ="option1" onclick="onSubmit(1)">
 <input type="button" value = "<%= @poll.option2 %>" id ="option2" onclick="onSubmit(2)">
 <input type="button" value = "Our world" id ="maps" name="maps">
 <div id = "messages"></div>
-<div id = "map_container" ></div>
