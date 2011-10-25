@@ -9,7 +9,7 @@ class ClicksController < ApplicationController
 			respond_to do |format|  
       				format.html {   
         				flash.now[:error] = "Chill dude !! "  
-        				render :action => "new"  
+        				#render :action => "new"  
       				}	  
       				# Render out the validation failed message with a  
       				# 403 status code.  
@@ -37,10 +37,14 @@ class ClicksController < ApplicationController
          @click.location = params[:loc]
          @click.save
          session[:latest_click]=Time.now.to_i
-	 @country_click = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country =>params[:country]) || CountryClicks.create_with_params(params,get_date)
+	 @country_click = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country =>params[:country]) 
+	 if (@country_click.count == 0) 
+ 	 	@county_click = CountryClicks.create_with_params(params,get_date)
+	 end
+
 	 @country_click.each do|var| 
 	 	if var !=nil
-			if(params[:option] ==1)
+			if(params[:option] == '1')
 				var.clicks+=1
 			else
 				var.clicks-=1	
