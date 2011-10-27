@@ -53,6 +53,15 @@ class ClicksController < ApplicationController
 		end
 	end
   
+  end
+  def getcountryclickupdates
+ 	@countryclick_updates = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country =>params[:country])
+	@country_click.each do|var|
+                if var !=nil
+			
+		
+		end 
+ 	end
   end 
 
 end
