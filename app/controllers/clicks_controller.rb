@@ -55,13 +55,9 @@ class ClicksController < ApplicationController
   
   end
   def getcountryclickupdates
- 	@countryclick_updates = CountryClicks.where(:poll_id =>params[:poll_id],:date => get_date,:country =>params[:country])
-	@country_click.each do|var|
-                if var !=nil
+	@countryclicks = CountryClicks.select("country,clicks").where(:poll_id=>params[:poll_id],:date => get_date,:updated_at => (Time.now.to_i -3600)..(Time.now.to_i))
+	respond_to do |format|
+		format.js{render:json => @countryclicks.to_json}
+	end 
 			
-		
-		end 
- 	end
-  end 
-
 end

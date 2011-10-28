@@ -13,7 +13,7 @@ Feel::Application.routes.draw do
   get "polls/destroy"
   get "pages/home"
   get "clicks/getcountryclicks"
-
+  get "clicks/getcountryclickupdates"
 
   match 'clicks/create', :to =>'clicks#create'
   resources :clicks do
@@ -25,6 +25,7 @@ Feel::Application.routes.draw do
   #match "/auth/:provider/callback" => "pages#login"
   match "/auth/:provider/callback" => "sessions#new"
   match "/clicks/getcountryclicks.js" => "clicks#getcountryclicks"
+  match "clicks/getcountryclickupdates.js" => "clicks#getcountryclickupdates"
 
   match "polls/blob", :to => "polls#blob"
   match "polls/update", :to => "polls#update"
