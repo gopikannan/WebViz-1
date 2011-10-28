@@ -1,9 +1,19 @@
 <script src="raphael.js"></script>
 <script src="drawmap.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<link rel="stylesheet" href="jquery.jgrowl.css" type="text/css"/>
+		<style type="text/css">
 
+			div.jGrowl-notification {
+				float: 			right;
+				margin-left: 	6px;
+			}
+
+		</style>
+<script type="text/javascript" src="jquery.ui.all.js"></script>
+<script type="text/javascript" src="jquery.jgrowl.js"></script>
 <script type ="text/javascript">
-	
+		
 	
 	var geocoder;
 	var address;
@@ -265,8 +275,10 @@
                						 countryPath.color = Raphael.getColor();
 
                						 countryPath[0].onmouseover = function() {
-                   						 countryPath.animate({
-                        						fill: countryPath.color,
+                   						$.jGrowl("Hello world!");
+				
+								 countryPath.animate({
+                        						fill: 'yellow',
                         						stroke: countryPath.color
                     						}, 300);
                    					 paper.safari();
