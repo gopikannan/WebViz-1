@@ -255,13 +255,13 @@
   				  for (var countryCode in map) {
 
         				(function(countryPath, countryCode) {
-            					if (visitedCountries[countryCode] > 10 ) {
+            					if (visitedCountries[countryCode] > 0 ) {
 							var gbvalue = 200 - (visitedCountries[countryCode]*color_inc )	;
                 					countryPath.attr({
                     						fill: 'rgb('+gbvalue+',255,'+gbvalue+')'
                						 });
 					         }
-            					else if (visitedCountries[countryCode] < -10 ) {
+            					else if (visitedCountries[countryCode] < 0 ) {
 							var gbvalue = 200 - (Math.abs(visitedCountries[countryCode])*color_inc )	;
                 					countryPath.attr({
                     						fill: 'rgb('+gbvalue+','+gbvalue+',255)'
@@ -275,7 +275,6 @@
                						 countryPath.color = Raphael.getColor();
 
                						 countryPath[0].onmouseover = function() {
-                   						$.jGrowl("Hello world!");
 				
 								 countryPath.animate({
                         						fill: 'yellow',
