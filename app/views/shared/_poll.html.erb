@@ -5,7 +5,7 @@
 		<style type="text/css">
 
 			div.jGrowl-notification {
-				float: 			right;
+				float: 	right;
 				margin-left: 	6px;
 			}
 
@@ -191,7 +191,8 @@
 					       loc:address,
 					       country:country },
 					success:function(data, textStatus) {
-						document.getElementById("messages").innerHTML="<p style='color:red'>Thanks Buddy !! </p>";
+						$.jGrowl("Thanks Buddy !!!");
+						//	document.getElementById("messages").innerHTML="<p style='color:red'>Thanks Buddy !! </p>";
     					},
     					error:function(request, textStatus, errorThrown) {
 						document.getElementById("messages").innerHTML="<p style='color:red'>Chill Buddy !!  Get some fresh air </p>";
